@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+<body>
+<a th:if="${currentUser==null}" href="/login">Login</a>
+<a th:if="${currentUser!=null}" href="/logout">Logout</a>
+<span th:if="${currentUser !=null}" th:text="Welcome + ' ' + ${currentUser.name}"></span>
+<a th:if="${currentUser==null}" href="/register">Register</a>
+
+Books:
+<a href="/book/add">Add new Book</a>
+
+
+<table>
+    <tr>
+        <th>id</th>
+        <th>title</th>
+        <th>price</th>
+        <th>action</th>
+    </tr>
+    <tr th:each="book:${books}">
+        <td th:text="${book.id}"></td>
+        <td th:text="${book.title}"></td>
+        <td th:text="${book.price}"></td>
+        <td>
+            <a th:href="@{/book/remove(bookId=${book.id})}">Remove</a>
+            <a th:href="@{/book/edit(bookId=${book.id})}">Edit</a>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
